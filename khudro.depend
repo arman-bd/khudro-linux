@@ -35,3 +35,37 @@
 
 1491000992 g:\github\khudro\response.c
 
+1497472654 source:/media/someone/Common/GitHub/khudro-linux/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<arpa/inet.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	"config.c"
+	"mime-list.c"
+	"function.c"
+	"request.c"
+	"response.c"
+
+1497259609 /media/someone/Common/GitHub/khudro-linux/config.c
+
+1497259609 /media/someone/Common/GitHub/khudro-linux/mime-list.c
+
+1497259609 /media/someone/Common/GitHub/khudro-linux/function.c
+
+1497472721 /media/someone/Common/GitHub/khudro-linux/request.c
+
+1497471150 /media/someone/Common/GitHub/khudro-linux/response.c
+
+1497471365 source:/media/someone/Common/GitHub/khudro-linux/test.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+

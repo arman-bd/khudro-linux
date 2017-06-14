@@ -1,5 +1,5 @@
 
-int send_response_header(SOCKET socket, int response, char *c_type, long c_size){
+int send_response_header(int socket, int response, char *c_type, long c_size){
     char header[4096];
 
     // Add Response Code
@@ -21,12 +21,12 @@ int send_response_header(SOCKET socket, int response, char *c_type, long c_size)
     return send(socket, header, strlen(header), 0);
 }
 
-int send_response_content(SOCKET socket, char *content){
+int send_response_content(int socket, char *content){
     return send(socket, content, strlen(content), 0);
 }
 
-int send_response_file(SOCKET socket, FILE *fp, size_t file_size, size_t max_buffer){
-    int byteSent = SOCKET_ERROR;
+int send_response_file(int socket, FILE *fp, size_t file_size, size_t max_buffer){
+    int byteSent = -1;
     char *file_buff;
 
     if(max_buffer == 0 || max_buffer > file_size){
@@ -60,7 +60,7 @@ int send_response_file(SOCKET socket, FILE *fp, size_t file_size, size_t max_buf
     return byteSent;
 }
 
-int send_response_error(SOCKET socket, int error_code, s_conf server_conf, int display_error){
+int send_response_error(int socket, int error_code, s_conf server_conf, int display_error){
 
     // Web Output
     FILE *fp;
@@ -104,14 +104,14 @@ int send_response_error(SOCKET socket, int error_code, s_conf server_conf, int d
         }
 
         // Send Header
-        if(send_response_header(socket, error_code, "text/html", strlen(web_buffer)) == SOCKET_ERROR){
+        if(send_response_header(socket, error_code, "text/html", strlen(web_buffer)) < 0){
             if(display_error == 1){
                 printf("Error: Unable To Send [Header] To Client [ 0x04 ]\n");
             }
         }
 
         // Send Content
-        if(send_response_content(socket, web_buffer) == SOCKET_ERROR){
+        if(send_response_content(socket, web_buffer) < 0){
             if(display_error == 1){
                 printf("Error: Unable To Send [Body] To Client [ 0x05 ]\n");
             }

@@ -11,12 +11,12 @@ typedef struct rqpack {
 }rqpack;
 
 
-int process_request(SOCKET socket, s_conf config_store, rqpack *request_data){
+int process_request(int socket, s_conf config_store, rqpack *request_data){
 
     int i, j;
     char file_name[2084]; // Maximum URL Length
     char file_path[2596];
-    int bytesRecv = 0;
+    int bytesRecv = -1;
 
     char *buffer_data;
     char *receive_array;
@@ -26,8 +26,9 @@ int process_request(SOCKET socket, s_conf config_store, rqpack *request_data){
     // Receive Data From Client
     bytesRecv = recv(socket, buffer_data, config_store.receive_buffer, 0);
 
-    if(bytesRecv == SOCKET_ERROR){
-        printf("Error: Data Receive Error [ 0x01 ] - %ld\n", WSAGetLastError());
+    if(bytesRecv < 0){
+        //printf("Error: Data Receive Error [ 0x01 ] - %ld\n", WSAGetLastError());
+        printf("Error: Data Receive Error [ 0x01 ]\n");
     }else{
         if(bytesRecv == 0){ // PING Request
             // Close Connection
@@ -71,11 +72,13 @@ int process_request(SOCKET socket, s_conf config_store, rqpack *request_data){
         }
 
         // Convert Slash
+        /*
         for(i = 0; i < strlen(file_name); i++){
             if(file_name[i] == '/'){
                 file_name[i] = '\\';
             }
         }
+        */
 
         url_decode((const char*)file_name, file_name);
 

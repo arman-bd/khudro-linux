@@ -1,4 +1,2 @@
-*.o
-*.layout
-bin/*
-khudro.exe
+obj/
+[Bb]in
