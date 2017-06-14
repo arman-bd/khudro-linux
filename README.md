@@ -1,5 +1,5 @@
 # Khudro
-Khudro is a very light weight web-server for Windows built with C.
+Khudro is a very light weight web-server for Windows & Linux built with C.
 
 The word 'Khudro' ( ক্ষুদ্র in Bangla ) means small.
 
@@ -27,5 +27,6 @@ a small functionality of serving simple files.
 * Cache-Control Support
 
 
+<img src="http://i.imgur.com/u2D74Fd.png" width="600">
 
-<img src="http://imgur.com/jP2fD72.png" width="600">
+For Windows version: https://github.com/arman-bd/khudro
