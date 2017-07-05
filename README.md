@@ -18,10 +18,13 @@ a small functionality of serving simple files.
 * Sending Buffer Limit ( To Conserve Memory )
 * Receiving Buffer Limit
 
-## Features To Be Added
+## Currently Working On
+* HTTPS Support
+* CGI Support
+* C Based Scripting
 
+## Features To Be Added
 * Compression Support
-* C Based Scripting [ as plugin ]
 * E-Tag Support
 * File Modified Check
 * Cache-Control Support
