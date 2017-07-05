@@ -32,7 +32,7 @@ a small functionality of serving simple files.
 ## Libraries Used
 * <a href="https://github.com/antirez/sds">SDS ( Simple Dynamic Strings )</a>
 
-
+## Screenshot
 <img src="http://i.imgur.com/u2D74Fd.png" width="600">
 
 For Windows version: https://github.com/arman-bd/khudro
