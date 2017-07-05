@@ -35,7 +35,7 @@
 
 1491000992 g:\github\khudro\response.c
 
-1497475513 source:/media/someone/Common/GitHub/khudro-linux/main.c
+1498637359 source:/media/someone/Common/GitHub/khudro-linux/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -44,21 +44,29 @@
 	<sys/types.h>
 	<sys/socket.h>
 	<netinet/in.h>
+	<resolv.h>
+	<openssl/ssl.h>
+	<openssl/err.h>
+	<openssl/rsa.h>
+	<openssl/x509.h>
+	<openssl/evp.h>
 	"config.c"
 	"mime-list.c"
 	"function.c"
 	"request.c"
 	"response.c"
+	"http.c"
+	"https.c"
 
-1497259609 /media/someone/Common/GitHub/khudro-linux/config.c
+1498637161 /media/someone/Common/GitHub/khudro-linux/config.c
 
 1497259609 /media/someone/Common/GitHub/khudro-linux/mime-list.c
 
 1497259609 /media/someone/Common/GitHub/khudro-linux/function.c
 
-1497472721 /media/someone/Common/GitHub/khudro-linux/request.c
+1498636080 /media/someone/Common/GitHub/khudro-linux/request.c
 
-1497471150 /media/someone/Common/GitHub/khudro-linux/response.c
+1498631057 /media/someone/Common/GitHub/khudro-linux/response.c
 
 1497471365 source:/media/someone/Common/GitHub/khudro-linux/test.c
 	<stdio.h>
@@ -68,4 +76,8 @@
 	<sys/types.h>
 	<sys/socket.h>
 	<netinet/in.h>
+
+1498637428 /media/someone/Common/GitHub/khudro-linux/http.c
+
+1498637460 /media/someone/Common/GitHub/khudro-linux/https.c
 

@@ -1,2 +1,5 @@
 obj/
 [Bb]in
+__kcgi
+kgi/obj/
+kgi/[Bb]in

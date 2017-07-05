@@ -2,7 +2,10 @@
 struct server_config {
     char default_ip[16];
     int default_port;
+    int ssl_port;
+    char ssl_cert[512];
     char default_dir[512];
+    char default_host[256];
     int compression;
     unsigned long long max_buffer;
     unsigned long long receive_buffer;
@@ -22,7 +25,6 @@ s_conf parse_config(char *file_path, int debug_display){
     int param_number;
 
     s_conf config_store;
-
 
     if((fp = fopen(file_path, "r")) != NULL){
         // Get File Size
@@ -45,6 +47,15 @@ s_conf parse_config(char *file_path, int debug_display){
                 }
                 if(strcmp(param_name, "default_port") == 0){
                     sscanf(param_value, "%d", &config_store.default_port);
+                }
+                if(strcmp(param_name, "default_host") == 0){
+                    strcpy(config_store.default_host, param_value);
+                }
+                if(strcmp(param_name, "ssl_port") == 0){
+                    sscanf(param_value, "%d", &config_store.ssl_port);
+                }
+                if(strcmp(param_name, "ssl_cert") == 0){
+                    strcpy(config_store.ssl_cert, param_value);
                 }
                 if(strcmp(param_name, "default_dir") == 0){
                     strcpy(config_store.default_dir, param_value);
@@ -99,6 +110,7 @@ s_conf parse_config(char *file_path, int debug_display){
         printf("Error: Config File Not Found\n");
         strcpy(config_store.default_ip, "127.0.0.1");
         config_store.default_port = 8080;
+        config_store.ssl_port = 443;
         strcpy(config_store.default_dir, "htdocs");
         config_store.compression = 0;
         config_store.max_buffer = 0;
@@ -108,6 +120,7 @@ s_conf parse_config(char *file_path, int debug_display){
         printf("Configuration Loaded:\n");
         printf("Default IP: %s\n", config_store.default_ip);
         printf("Default Port: %d\n", config_store.default_port);
+        printf("SSL Port: %d\n", config_store.ssl_port);
         printf("Default Directory: %s\n", config_store.default_dir);
         if(config_store.compression == 0){
             printf("Compression: Disabled\n");

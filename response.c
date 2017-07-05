@@ -14,7 +14,7 @@ int send_response_header(int socket, int response, char *c_type, long c_size){
     // Process Header
     sprintf(header, "%sServer: %s/%s (%s)\n", header, __ServerName, __ServerVersion, __ServerOS);
     sprintf(header, "%sContent-Type: %s; charset=utf-8\n", header, c_type);
-    sprintf(header, "%sContent-Length: %ld\n", header, c_size);
+    //sprintf(header, "%sContent-Length: %ld\n", header, c_size);
     sprintf(header, "%s\n", header);
 
     // Send Header

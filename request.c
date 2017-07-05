@@ -26,6 +26,9 @@ int process_request(int socket, s_conf config_store, rqpack *request_data){
     // Receive Data From Client
     bytesRecv = recv(socket, buffer_data, config_store.receive_buffer, 0);
 
+    //printf("\n>bytesRecv : %d", bytesRecv);
+    //printf("\n>buffer_data : %s", buffer_data);
+
     if(bytesRecv < 0){
         //printf("Error: Data Receive Error [ 0x01 ] - %ld\n", WSAGetLastError());
         printf("Error: Data Receive Error [ 0x01 ]\n");

@@ -23,6 +23,15 @@ char __ServerOS[32] = "Linux";
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <resolv.h>
+
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/rsa.h>
+#include <openssl/x509.h>
+#include <openssl/evp.h>
+
+#define FAIL    -1
 
 // Include Required File
 #include "config.c"
@@ -30,6 +39,8 @@ char __ServerOS[32] = "Linux";
 #include "function.c"
 #include "request.c"
 #include "response.c"
+#include "http.c"
+#include "https.c"
 
 int main(){
 
@@ -37,8 +48,7 @@ int main(){
 
     // Declare Socket Parameters
     int bytesRecv = -1;
-    int MainSocket;
-    int AcceptSocket;
+    int MainSocket, SecureSocket, AcceptSocket;
 
     // Request Data
     rqpack request_data;
@@ -48,10 +58,23 @@ int main(){
     char *file_type = malloc(128);
     size_t file_size = 0;
 
+
+
     // Load Default Configuration
     s_conf server_conf;
     server_conf = parse_config("khudro.conf", 1);
 
+
+
+    if(server_conf.default_port > 0){
+        MainSocket = ListenHTTP(server_conf);
+    }
+
+    if(server_conf.ssl_port > 0){
+        //SecureSocket = ListenHTTPS(server_conf);
+    }
+
+/*
     struct sockaddr_in service, cli_addr;
     service.sin_family = AF_INET; // AF_INET is the Internet address family.
     service.sin_addr.s_addr = inet_addr(server_conf.default_ip); // Local IP
@@ -84,8 +107,11 @@ int main(){
     }
 
     printf("\n");
+*/
 
     // Listen For Request
+
+    struct sockaddr_in cli_addr;
     socklen_t clilen;
     clilen = sizeof(cli_addr);
 
