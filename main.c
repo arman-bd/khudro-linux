@@ -14,6 +14,8 @@ char __ServerName[128] = "Khudro";
 char __ServerVersion[16] = "0.1.1";
 char __ServerOS[32] = "Linux";
 
+#define FAIL    -1
+
 // Include Required Headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,15 +27,18 @@ char __ServerOS[32] = "Linux";
 #include <netinet/in.h>
 #include <resolv.h>
 
+// External Libraries
+//#include "lib/sds/sds.h"
+//#include "lib/sds/sdsalloc.h"
+
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/rsa.h>
 #include <openssl/x509.h>
 #include <openssl/evp.h>
 
-#define FAIL    -1
-
 // Include Required File
+#include "lib/sds/sds.c"
 #include "config.c"
 #include "mime-list.c"
 #include "function.c"

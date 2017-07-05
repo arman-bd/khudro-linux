@@ -29,6 +29,9 @@ a small functionality of serving simple files.
 * File Modified Check
 * Cache-Control Support
 
+## Libraries Used
+* <a href="https://github.com/antirez/sds">SDS ( Simple Dynamic Strings )</a>
+
 
 <img src="http://i.imgur.com/u2D74Fd.png" width="600">
 

@@ -35,7 +35,7 @@
 
 1491000992 g:\github\khudro\response.c
 
-1498637359 source:/media/someone/Common/GitHub/khudro-linux/main.c
+1499288413 source:/media/someone/Common/GitHub/khudro-linux/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -50,6 +50,7 @@
 	<openssl/rsa.h>
 	<openssl/x509.h>
 	<openssl/evp.h>
+	"sds.c"
 	"config.c"
 	"mime-list.c"
 	"function.c"
@@ -58,15 +59,15 @@
 	"http.c"
 	"https.c"
 
-1498637161 /media/someone/Common/GitHub/khudro-linux/config.c
+1499277058 /media/someone/Common/GitHub/khudro-linux/config.c
 
 1497259609 /media/someone/Common/GitHub/khudro-linux/mime-list.c
 
 1497259609 /media/someone/Common/GitHub/khudro-linux/function.c
 
-1498636080 /media/someone/Common/GitHub/khudro-linux/request.c
+1499289208 /media/someone/Common/GitHub/khudro-linux/request.c
 
-1498631057 /media/someone/Common/GitHub/khudro-linux/response.c
+1499289121 /media/someone/Common/GitHub/khudro-linux/response.c
 
 1497471365 source:/media/someone/Common/GitHub/khudro-linux/test.c
 	<stdio.h>
@@ -80,4 +81,44 @@
 1498637428 /media/someone/Common/GitHub/khudro-linux/http.c
 
 1498637460 /media/someone/Common/GitHub/khudro-linux/https.c
+
+1472720731 /media/someone/Common/GitHub/khudro-linux/lib/sds/sds.h
+	<sys/types.h>
+	<stdarg.h>
+	<stdint.h>
+
+1472720731 /media/someone/Common/GitHub/khudro-linux/lib/sds/sdsalloc.h
+
+1472720731 /media/someone/Common/GitHub/khudro-linux/lib/sds/sds.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<assert.h>
+	<limits.h>
+	"sds.h"
+	"sdsalloc.h"
+	<stdio.h>
+	"testhelp.h"
+	"limits.h"
+
+1499289033 /media/someone/Common/GitHub/khudro-linux/sds.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<assert.h>
+	<limits.h>
+	"sds.h"
+	"sdsalloc.h"
+	<stdio.h>
+	"testhelp.h"
+	"limits.h"
+
+1472720731 /media/someone/Common/GitHub/khudro-linux/sds.h
+	<sys/types.h>
+	<stdarg.h>
+	<stdint.h>
+
+1472720731 /media/someone/Common/GitHub/khudro-linux/sdsalloc.h
 
