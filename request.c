@@ -19,11 +19,13 @@ typedef struct rqpack {
     char *host;
 }rqpack;
 
+
 int process_file_path(rqpack *request_data, s_conf config_store, char *file_name);
+
 
 int process_request(int AcceptSocket, s_conf config_store, rqpack *request_data){
 
-    int i, j;
+    int i;
     //char file_name[2084]; // Maximum URL Length
     //char file_path[2596];
     int bytesRecv = -1;
@@ -40,8 +42,8 @@ int process_request(int AcceptSocket, s_conf config_store, rqpack *request_data)
     // Receive Data From Client
     bytesRecv = recv(AcceptSocket, buffer_data, config_store.receive_buffer, 0);
 
-    //printf("\n>bytesRecv : %d", bytesRecv);
-    //printf("\n>buffer_data : %s", buffer_data);
+    printf("\n>bytesRecv : %d", bytesRecv);
+    printf("\n>buffer_data :\n%s", buffer_data);
 
     if(bytesRecv < 0){
         //printf("Error: Data Receive Error [ 0x01 ] - %ld\n", WSAGetLastError());

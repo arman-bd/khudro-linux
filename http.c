@@ -16,9 +16,17 @@ int ListenHTTP(s_conf server_conf){
     }
 
     // Bind Socket
+    recon:
     if(bind(MainSocket, (struct sockaddr *)&service, sizeof(service)) < 0){
-        printf("Error: Binding Failed.\n");
+        printf("Error: Binding Failed at Port [ %d ].\n", server_conf.default_port);
         printf("       Check If Port Is Already In Use.\n");
+
+        server_conf.default_port++;
+        service.sin_port = htons(server_conf.default_port);// Local Port
+        close(MainSocket);
+        MainSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+        goto recon;
+
         close(MainSocket);
         return 0;
     }else{

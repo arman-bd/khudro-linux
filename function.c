@@ -77,6 +77,27 @@ int url_decode(const char *s, char *dec){
 	return o - dec;
 }
 
+int setEnv(char *key, char *value){
+    char *env_var;
+    env_var = malloc(sizeof(char)*(strlen(key)+strlen(value)+2)); // 1 for equal and 1 for null terminator
+    strcpy(env_var, key);
+    strcat(env_var, "=");
+    strcat(env_var, value);
+    putenv(env_var);
+    if(getenv(key) != NULL){
+        printf("\nENV SET: %s", env_var);
+    }
+    free(env_var);
+    return 1;
+}
+
+int writeToPipe(int pipe, char *key, char *value){
+    write(pipe, key, strlen(key)*sizeof(char));
+    write(pipe, ": ", 2*sizeof(char));
+    write(pipe, value, strlen(value)*sizeof(char));
+    write(pipe, ";", sizeof(char));
+    printf("\n>>%s=%s", key, value);
+}
 
 /*
     Generating RFC 1123 Time Stamp

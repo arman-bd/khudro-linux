@@ -35,7 +35,7 @@
 
 1491000992 g:\github\khudro\response.c
 
-1499288413 source:/media/someone/Common/GitHub/khudro-linux/main.c
+1499469140 source:/media/someone/Common/GitHub/khudro-linux/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -45,12 +45,14 @@
 	<sys/socket.h>
 	<netinet/in.h>
 	<resolv.h>
+	<fcntl.h>
 	<openssl/ssl.h>
 	<openssl/err.h>
 	<openssl/rsa.h>
 	<openssl/x509.h>
 	<openssl/evp.h>
-	"sds.c"
+	"lib/sds/sds.c"
+	"lib/popenRWE/popenRWE.c"
 	"config.c"
 	"mime-list.c"
 	"function.c"
@@ -59,15 +61,15 @@
 	"http.c"
 	"https.c"
 
-1499277058 /media/someone/Common/GitHub/khudro-linux/config.c
+1499457732 /media/someone/Common/GitHub/khudro-linux/config.c
 
 1497259609 /media/someone/Common/GitHub/khudro-linux/mime-list.c
 
-1497259609 /media/someone/Common/GitHub/khudro-linux/function.c
+1499463836 /media/someone/Common/GitHub/khudro-linux/function.c
 
-1499289208 /media/someone/Common/GitHub/khudro-linux/request.c
+1499290270 /media/someone/Common/GitHub/khudro-linux/request.c
 
-1499289121 /media/someone/Common/GitHub/khudro-linux/response.c
+1499289239 /media/someone/Common/GitHub/khudro-linux/response.c
 
 1497471365 source:/media/someone/Common/GitHub/khudro-linux/test.c
 	<stdio.h>
@@ -78,7 +80,7 @@
 	<sys/socket.h>
 	<netinet/in.h>
 
-1498637428 /media/someone/Common/GitHub/khudro-linux/http.c
+1499467625 /media/someone/Common/GitHub/khudro-linux/http.c
 
 1498637460 /media/someone/Common/GitHub/khudro-linux/https.c
 
@@ -89,7 +91,7 @@
 
 1472720731 /media/someone/Common/GitHub/khudro-linux/lib/sds/sdsalloc.h
 
-1472720731 /media/someone/Common/GitHub/khudro-linux/lib/sds/sds.c
+1499289033 /media/someone/Common/GitHub/khudro-linux/lib/sds/sds.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -121,4 +123,6 @@
 	<stdint.h>
 
 1472720731 /media/someone/Common/GitHub/khudro-linux/sdsalloc.h
+
+1499435701 /media/someone/Common/GitHub/khudro-linux/lib/popenRWE/popenRWE.c
 

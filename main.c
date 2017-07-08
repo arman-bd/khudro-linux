@@ -21,11 +21,13 @@ char __ServerOS[32] = "Linux";
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <resolv.h>
+#include <fcntl.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <resolv.h>
+#include <sys/wait.h>
 
 // External Libraries
 //#include "lib/sds/sds.h"
@@ -37,8 +39,11 @@ char __ServerOS[32] = "Linux";
 #include <openssl/x509.h>
 #include <openssl/evp.h>
 
+extern char **environ;
+
 // Include Required File
 #include "lib/sds/sds.c"
+#include "lib/popenRWE/popenRWE.c"
 #include "config.c"
 #include "mime-list.c"
 #include "function.c"
@@ -53,14 +58,22 @@ int main(){
 
     // Declare Socket Parameters
     int bytesRecv = -1;
-    int MainSocket, SecureSocket, AcceptSocket;
+    int MainSocket = -1, AcceptSocket = -1;
+    char strSock[8];
+    //int SecureSocket;
 
     // Request Data
     rqpack request_data;
 
+    // KGI
+    pid_t pid;
+    int kpipe[3];
+    char kbuffer[1024] = "";
+
     // File
     FILE *fp;
     char *file_type = malloc(128);
+    char kgi_path_call[512] = "";
     size_t file_size = 0;
 
 
@@ -145,16 +158,84 @@ int main(){
     if((fp = fopen(request_data.file_path, "rb")) != NULL){
         // File Found, Now Get Some Information About File And Send It
         get_mime_type(request_data.file_name, file_type); // Get MIME Type
-        file_size = getFileSize(fp); // Get File Size
-        send_response_header(AcceptSocket, 200, file_type, file_size); // Send Header
-        send_response_file(AcceptSocket, fp, file_size, server_conf.max_buffer); // Send File To Client
+
+        if(strcmp(file_type, "text/x-c") == 0 && access(server_conf.kgi_path, F_OK) != -1){
+            // Send It To KGI
+            printf("\nKGI: Calling...");
+            /*
+            setEnv("DEFAULT_DIR", server_conf.default_dir);
+            setEnv("OBJECT_DIR", server_conf.object_dir);
+            setEnv("SCRIPT_PATH", request_data.file_path);
+            sprintf(strSock, "%d", AcceptSocket);
+            setEnv("CLIENT_SOCKET", strSock);
+            printf("\nKGI: Environment Set!");
+            // SET MORE ENV!!
+            */
+            strcpy(kgi_path_call, server_conf.kgi_path);
+            //strcat(kgi_path_call, " > yahoo.txt");
+            //system(kgi_path_call);
+
+            printf("\nKGI: %s", kgi_path_call);
+            printf("\nENV[0]: %s\n", environ[0]);
+
+            pid = popenRWE(kpipe, kgi_path_call);
+
+            sprintf(strSock, "%d", AcceptSocket);
+
+            write(kpipe[0], server_conf.default_dir, strlen(server_conf.default_dir)*sizeof(char));
+            write(kpipe[0], " | ", 3*sizeof(char));
+            write(kpipe[0], server_conf.object_dir, strlen(server_conf.object_dir)*sizeof(char));
+            write(kpipe[0], " | ", 3*sizeof(char));
+            write(kpipe[0], request_data.file_path, strlen(request_data.file_path)*sizeof(char));
+            write(kpipe[0], " | ", 3*sizeof(char));
+            write(kpipe[0], strSock, strlen(strSock)*sizeof(char));
+
+            close(kpipe[0]);
+
+            printf("\nRead [ 01 ]");
+            while(read(kpipe[1], &kbuffer, sizeof(kbuffer))){
+                printf("%s", kbuffer);
+            }
+
+            printf("\nRead [ 02 ]");
+            while(read(kpipe[2], &kbuffer, sizeof(kbuffer))){
+                printf("%s", kbuffer);
+            }
+            pcloseRWE(pid, kpipe);
+            close(AcceptSocket);
+
+            //fpipe = popen(kgi_path_call, "r");
+            //pipenum = fileno(fpipe);
+            //fcntl(pipenum, F_SETFL, O_NONBLOCK);
+            //pclose(fpipe);
+            //pid = fork();
+            //if(pid == 0){
+            //    execle(kgi_path_call, NULL, environ);
+            //    printf("\nKGI__: %s", kgi_path_call);
+            //    return 0;
+            //}else{
+            //    printf("\nKGI--: %s", kgi_path_call);
+            //}
+
+
+
+            printf("\nKGI: Call Finished!");
+
+            // DO NOT CLOSE SOCKET!!
+        }else{
+            // Handle It In Static Handler
+            file_size = getFileSize(fp); // Get File Size
+            send_response_header(AcceptSocket, 200, file_type, file_size); // Send Header
+            send_response_file(AcceptSocket, fp, file_size, server_conf.max_buffer); // Send File To Client
+            close(AcceptSocket); // Close Connection
+        }
         fclose(fp); // Close File
     }else{
         send_response_error(AcceptSocket, 404, server_conf, 0); // No Debug Print
+        close(AcceptSocket); // Close Connection
     }
 
-
-    close(AcceptSocket); // Close Connection
+    //close(AcceptSocket); // Close Connection
     goto listen_for_client; // Repeat Process
 
     return 0;

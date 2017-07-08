@@ -5,6 +5,8 @@ struct server_config {
     int ssl_port;
     char ssl_cert[512];
     char default_dir[512];
+    char object_dir[512];
+    char kgi_path[512];
     char default_host[256];
     int compression;
     unsigned long long max_buffer;
@@ -60,6 +62,12 @@ s_conf parse_config(char *file_path, int debug_display){
                 if(strcmp(param_name, "default_dir") == 0){
                     strcpy(config_store.default_dir, param_value);
                 }
+                if(strcmp(param_name, "object_dir") == 0){
+                    strcpy(config_store.object_dir, param_value);
+                }
+                if(strcmp(param_name, "kgi_path") == 0){
+                    strcpy(config_store.kgi_path, param_value);
+                }
                 if(strcmp(param_name, "compression") == 0){
                     sscanf(param_value, "%d", &config_store.compression);
                 }
@@ -112,6 +120,7 @@ s_conf parse_config(char *file_path, int debug_display){
         config_store.default_port = 8080;
         config_store.ssl_port = 443;
         strcpy(config_store.default_dir, "htdocs");
+        strcpy(config_store.object_dir, "objects");
         config_store.compression = 0;
         config_store.max_buffer = 0;
     }
@@ -122,6 +131,7 @@ s_conf parse_config(char *file_path, int debug_display){
         printf("Default Port: %d\n", config_store.default_port);
         printf("SSL Port: %d\n", config_store.ssl_port);
         printf("Default Directory: %s\n", config_store.default_dir);
+        printf("Object Directory: %s\n", config_store.object_dir);
         if(config_store.compression == 0){
             printf("Compression: Disabled\n");
         }else{
