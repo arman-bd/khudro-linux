@@ -35,22 +35,27 @@
 
 1491000992 g:\github\khudro\response.c
 
-1499469140 source:/media/someone/Common/GitHub/khudro-linux/main.c
+1500924459 source:/media/someone/Common/GitHub/khudro-linux/main.c
 	<stdio.h>
 	<stdlib.h>
+	<math.h>
 	<string.h>
 	<unistd.h>
+	<resolv.h>
+	<pthread.h>
+	<fcntl.h>
 	<arpa/inet.h>
+	<netinet/in.h>
 	<sys/types.h>
 	<sys/socket.h>
-	<netinet/in.h>
-	<resolv.h>
-	<fcntl.h>
+	<sys/wait.h>
 	<openssl/ssl.h>
 	<openssl/err.h>
 	<openssl/rsa.h>
 	<openssl/x509.h>
 	<openssl/evp.h>
+	"lib/map_lib/map_lib.h"
+	"lib/map_lib/map_lib.c"
 	"lib/sds/sds.c"
 	"lib/popenRWE/popenRWE.c"
 	"config.c"
@@ -60,12 +65,13 @@
 	"response.c"
 	"http.c"
 	"https.c"
+	"kgi.c"
 
 1499457732 /media/someone/Common/GitHub/khudro-linux/config.c
 
 1497259609 /media/someone/Common/GitHub/khudro-linux/mime-list.c
 
-1499463836 /media/someone/Common/GitHub/khudro-linux/function.c
+1499519180 /media/someone/Common/GitHub/khudro-linux/function.c
 
 1499290270 /media/someone/Common/GitHub/khudro-linux/request.c
 
@@ -125,4 +131,14 @@
 1472720731 /media/someone/Common/GitHub/khudro-linux/sdsalloc.h
 
 1499435701 /media/someone/Common/GitHub/khudro-linux/lib/popenRWE/popenRWE.c
+
+1500922871 /media/someone/Common/GitHub/khudro-linux/lib/map_lib/map_lib.h
+
+1500922841 /media/someone/Common/GitHub/khudro-linux/lib/map_lib/map_lib.c
+	<stdio.h>
+	<malloc.h>
+	<string.h>
+	"map_lib.h"
+
+1500925117 /media/someone/Common/GitHub/khudro-linux/kgi.c
 

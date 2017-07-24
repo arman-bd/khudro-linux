@@ -8,5 +8,10 @@ int main(){
     printf("Hello World!");
     printf("<br>Once I was C");
     printf("<br>Now I can See");
+
+    int i;
+    for(i = 0; i < 10000; i++){
+        printf(" %d", i);
+    }
     return 0;
 }
