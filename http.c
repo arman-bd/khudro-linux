@@ -1,5 +1,5 @@
 
-int ListenHTTP(s_conf server_conf){
+int ListenHTTP(){
     int MainSocket;
     struct sockaddr_in service;
     service.sin_family = AF_INET; // AF_INET is the Internet address family.
