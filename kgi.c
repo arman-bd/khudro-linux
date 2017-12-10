@@ -2,59 +2,28 @@
 Khudro Gateway Interface
 */
 
-void *khudro_gateway_interface(void *k_arg) {
+void *khudro_gateway_interface() {
 
-    //karg *kgi_map = (karg *)k_arg;
-
-    // Test Values
-    /*
-    putenv("DEFAULT_DIR=../htdocs");
-    putenv("OBJECT_DIR=../objects");
-    putenv("SCRIPT_PATH=../htdocs/hello.c");
-    putenv("CLIENT_SOCKET=9");
-    */
-    char *DEFAULT_DIR, *OBJECT_DIR, *SCRIPT_PATH;
+    char *DEFAULT_DIR, *OBJECT_DIR, *SCRIPT_PATH, *SCRIPT_QUERY;
     int CLIENT_SOCKET = -1;
-    /*
-    scanf("%s | %s | %s | %d", &DEFAULT_DIR, &OBJECT_DIR, &SCRIPT_PATH, &CLIENT_SOCKET);
-    */
-    //DEFAULT_DIR = map_get(kgi_map, "DEFAULT_DIR");
-    //OBJECT_DIR = map_get(kgi_map, "OBJECT_DIR");
-    //SCRIPT_PATH = map_get(kgi_map, "SCRIPT_PATH");
-    //CLIENT_SOCKET = atoi(map_get(kgi_map, "CLIENT_SOCKET"));
+
     DEFAULT_DIR = malloc(128);
     OBJECT_DIR = malloc(128);
-    SCRIPT_PATH = malloc(128);
+    SCRIPT_PATH = malloc(512);
+    SCRIPT_QUERY = malloc(512);
 
     strcpy(DEFAULT_DIR, "htdocs");
     strcpy(OBJECT_DIR, "objects");
-    strcpy(SCRIPT_PATH, "htdocs/hello.c");
+    strcpy(SCRIPT_PATH, GlobalFilePath);
+    strcpy(SCRIPT_QUERY, GlobalQuery);
     CLIENT_SOCKET = GlobalSock;
 
 
-    printf("\n==>DEFAULT_DIR: %s", DEFAULT_DIR);
-    printf("\n==>OBJECT_DIR: %s", OBJECT_DIR);
-    printf("\n==>SCRIPT_PATH: %s", SCRIPT_PATH);
-    printf("\n==>CLIENT_SOCKET: %d", CLIENT_SOCKET);
-    //return 0;
-
-    /*
-    if(getenv("DEFAULT_DIR") == NULL || getenv("SCRIPT_PATH") == NULL ||
-       getenv("OBJECT_DIR") == NULL || getenv("CLIENT_SOCKET") == NULL){
-        // Display Error Message
-        printf("Error: Invalid Environment\n");
-        return 0;
-    }
-    */
-
-
-    //printf("\nKGI-CONNECTED! %s %s %s %d", DEFAULT_DIR, SCRIPT_PATH, OBJECT_DIR, CLIENT_SOCKET);
-
-    char compiler_command[10240] = "", object_path[10240] = "";
+    char compiler_command[1024] = "", object_path[1024] = "", runtime_path[1024] = "";
 
     pid_t compiler_pid, object_pid;
     int compiler_pipe[3], object_pipe[3];
-    char compiler_buffer[10240] = "", object_buffer[1] = "";
+    char compiler_buffer[1024] = "", object_buffer[1024] = "";
 
     int param_count;
     sds param_sds, *param_token;
@@ -71,17 +40,19 @@ void *khudro_gateway_interface(void *k_arg) {
 
     if(access(object_path, F_OK) == -1){
         // Not Copiled Yet!
-        strcpy(compiler_command, "gcc -o ");
-        strcat(compiler_command, object_path);
-        strcat(compiler_command, " ");
+
+        strcpy(compiler_command, "g++ ");
         strcat(compiler_command, SCRIPT_PATH);
+        strcat(compiler_command, " -o ");
+        strcat(compiler_command, object_path);
 
         printf("\nCompiler Command: %s\n", compiler_command);
 
         compiler_pid = popenRWE(compiler_pipe, compiler_command);
         close(compiler_pipe[0]);
+
         while(read(compiler_pipe[1], &compiler_buffer, sizeof(compiler_buffer))){
-            printf("%s", compiler_buffer);
+            printf("> Compiler: %s\n", compiler_buffer);
         }
         pcloseRWE(compiler_pid, compiler_pipe);
     }
@@ -98,7 +69,16 @@ void *khudro_gateway_interface(void *k_arg) {
     // Process Local Script
     //chdir(getenv("DEFAULT_DIR"));
 
-    object_pid = popenRWE(object_pipe, object_path);
+
+    strcat(runtime_path, object_path);
+    strcat(runtime_path, " \"");
+    strcat(runtime_path, SCRIPT_QUERY);
+    strcat(runtime_path, "\"");
+
+    object_pid = popenRWE(object_pipe, runtime_path);
+
+
+    //printf("> Executing: %s\n\n", runtime_path);
 
     // In Case of POST
     /*
@@ -106,19 +86,26 @@ void *khudro_gateway_interface(void *k_arg) {
     close(object_pipe[0]);
     */
     close(object_pipe[0]);
+
+
     while(read(object_pipe[1], &object_buffer, sizeof(object_buffer))){
-        printf("%s", object_buffer);
+        //printf("%s", object_buffer);
         send(CLIENT_SOCKET, object_buffer, strlen(object_buffer), 0);
+        memset(object_buffer, 0, sizeof object_buffer);
     }
     close(CLIENT_SOCKET);
     pcloseRWE(object_pid, object_pipe);
-
 
     // Connect To Client
 
     // Run Local Script ( Application )
 
     // Send To Client
+    sdsfree(param_sds);
+    free(DEFAULT_DIR);
+    free(OBJECT_DIR);
+    free(SCRIPT_PATH);
+    free(SCRIPT_QUERY);
 
-    return 0;
+    return 1;
 }
