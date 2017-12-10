@@ -17,7 +17,7 @@ int send_response_header(int socket, int response, char *c_type, long c_size){
     //sprintf(header, "%sContent-Length: %ld\n", header, c_size);
     sprintf(header, "%s\n", header);
 
-    printf("\n%s\n", header);
+    //printf("\n%s\n", header);
     // Send Header
     return send(socket, header, strlen(header), 0);
 }
