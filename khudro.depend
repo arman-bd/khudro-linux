@@ -35,7 +35,7 @@
 
 1491000992 g:\github\khudro\response.c
 
-1500924459 source:/media/someone/Common/GitHub/khudro-linux/main.c
+1512853507 source:/media/someone/Common/GitHub/khudro-linux/main.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -69,13 +69,13 @@
 
 1499457732 /media/someone/Common/GitHub/khudro-linux/config.c
 
-1497259609 /media/someone/Common/GitHub/khudro-linux/mime-list.c
+1512831745 /media/someone/Common/GitHub/khudro-linux/mime-list.c
 
 1499519180 /media/someone/Common/GitHub/khudro-linux/function.c
 
-1499290270 /media/someone/Common/GitHub/khudro-linux/request.c
+1512851351 /media/someone/Common/GitHub/khudro-linux/request.c
 
-1499289239 /media/someone/Common/GitHub/khudro-linux/response.c
+1512846548 /media/someone/Common/GitHub/khudro-linux/response.c
 
 1497471365 source:/media/someone/Common/GitHub/khudro-linux/test.c
 	<stdio.h>
@@ -86,7 +86,7 @@
 	<sys/socket.h>
 	<netinet/in.h>
 
-1499467625 /media/someone/Common/GitHub/khudro-linux/http.c
+1512851722 /media/someone/Common/GitHub/khudro-linux/http.c
 
 1498637460 /media/someone/Common/GitHub/khudro-linux/https.c
 
@@ -140,5 +140,5 @@
 	<string.h>
 	"map_lib.h"
 
-1500925117 /media/someone/Common/GitHub/khudro-linux/kgi.c
+1512849681 /media/someone/Common/GitHub/khudro-linux/kgi.c
 
